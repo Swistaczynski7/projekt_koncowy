@@ -12,10 +12,12 @@ import testingUtils.BaseDriver;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 public class StepDefinitions {
+
     WebDriver driver;
     WebDriverWait wait;
     String firstPostLink;
     String firstPostTitleTextValue;
+
     @Before
     public void setup(){
         driver = BaseDriver.setDriver();
@@ -38,6 +40,17 @@ public class StepDefinitions {
         WebElement firstPostTitle = driver.findElement(By.className("crayons-story__title"));
         firstPostTitleTextValue = firstPostTitle.getText();
         firstPostTitle.click();
+    }
+    @When("User click podcasts button")
+    public void user_click_podcasts_button() {
+        WebElement podcastsBtn = driver.findElement(By.partialLinkText("Podcasts"));
+        podcastsBtn.click();
+    }
+    @When("User select the first podcast")
+    public void user_select_the_first_podcast() {
+        wait.until(ExpectedConditions.urlToBe("https://dev.to/pod"));
+        WebElement firstPodcast = driver.findElement(By.className("content"));
+        firstPodcast.click();
     }
     @Then("User should be able to see post content")
     public void user_should_be_able_to_see_post_content() {
