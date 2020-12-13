@@ -1,7 +1,9 @@
 package devToTests;
 
 import devToPageObjects.*;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import testingUtils.BaseDriver;
+import testingUtils.ScenarioData;
 
 import static org.junit.Assert.assertTrue;
 
@@ -96,4 +99,13 @@ public class StepDefinitions {
         singlePodcastPage.pausePodcast();
         assertTrue(singlePodcastPage.GetPausedStatus());
     }
+
+    @After
+    public void tearDown(Scenario scenario){
+        driver.quit();
+        ScenarioData.scenarioName = scenario.getName();
+        ScenarioData.scenarioStatus = scenario.getStatus();
+
+    }
+
 }
